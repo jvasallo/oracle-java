@@ -34,6 +34,14 @@
   tags:
     - installation
 
+- name: install into alternatives
+  shell:
+    "alternatives --install /usr/bin/java java {{ oracle_java_home }}/jre/bin/java 200000"
+  when: not oracle_java_task_rpm_check|skipped
+  sudo: yes
+  tags:
+    - installation
+
 - name: set Java version as default
   shell: "alternatives --set java {{ oracle_java_home }}/jre/bin/java"
   when: oracle_java_set_as_default
